@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .actions a {
+            margin-right: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+        .add-fee-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .add-fee-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fees Management</h1>
+
+        <!-- Add Fee Button -->
+        <a href="{% url 'add_fee' %}" class="add-fee-btn">Add Fee</a>
+
+        <!-- Fees Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Amount</th>
+                    <th>Payment Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fee in fees %}
+                <tr>
+                    <td>{{ fee.student.name }}</td>
+                    <td>{{ fee.amount }}</td>
+                    <td>{{ fee.payment_date }}</td>
+                    <td class="actions">
+                        <a href="{% url 'edit_fee' fee.id %}">Edit</a>
+                        <a href="{% url 'delete_fee' fee.id %}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Back to Dashboard Button -->
+        <a href="{% url 'staff_dashboard' %}" class="back-btn">Back to Dashboard</a>
+    </div>
+</body>
+</html>

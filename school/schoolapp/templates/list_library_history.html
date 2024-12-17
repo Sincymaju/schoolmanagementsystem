@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library History</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .actions a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        .actions a:hover {
+            text-decoration: underline;
+        }
+        .btn-dashboard {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .btn-dashboard:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>fees History list</h1>
+    <a href="{% url 'create_library_history' %}">Add New Entry</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Book Title</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for history in histories %}
+            <tr>
+                <td>{{ history.id }}</td>
+                <td>{{ history.student.name }}</td>
+                <td>{{ history.book_title }}</td>
+                <td>{{ history.issue_date }}</td>
+                <td>{{ history.return_date }}</td>
+                <td class="actions">
+                    <a href="{% url 'edit_library_history' history.id %}">Edit</a>
+                    <a href="{% url 'delete_library_history' history.id %}" 
+                       onclick="return confirm('Are you sure you want to delete this entry?');">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'admin_dashboard' %}" class="btn-dashboard">Back to Admin Dashboard</a>
+</body>
+</html>

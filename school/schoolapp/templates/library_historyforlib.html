@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .add-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .add-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Library History</h1>
+        <a href="{% url 'add_library_history' %}" class="add-btn">Add New Record</a>
+        <table>
+            <tr>
+                <th>Student</th>
+                <th>Book Title</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+                <th>Actions</th>
+            </tr>
+            {% for record in history %}
+            <tr>
+                <td>{{ record.student.name }}</td>
+                <td>{{ record.book_title }}</td>
+                <td>{{ record.issue_date }}</td>
+                <td>{{ record.return_date|default:"Not Returned" }}</td>
+                <td>
+                    <a href="{% url 'edit_library_history' record.id %}">Edit</a> | 
+                    <a href="{% url 'delete_library_history' record.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'librarian_dashboard' %}">Back to Dashboard</a>
+    </div>
+</body>
+</html>

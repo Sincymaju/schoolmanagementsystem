@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Library History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        form input, form select, form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{% block title %}Add Library History{% endblock %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="student_id">Student</label>
+            <select name="student_id" id="student_id">
+                {% for student in students %}
+                <option value="{{ student.id }}" {% if student == history.student %}selected{% endif %}>{{ student.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="book_title">Book Title</label>
+            <input type="text" name="book_title" id="book_title" value="{{ history.book_title }}">
+
+            <label for="issue_date">Issue Date</label>
+            <input type="date" name="issue_date" id="issue_date" value="{{ history.issue_date }}">
+
+            <label for="return_date">Return Date</label>
+            <input type="date" name="return_date" id="return_date" value="{{ history.return_date }}">
+
+            <button type="submit">Save</button>
+        </form>
+        <a href="{% url 'list_library_history' %}">Back to Library History</a>
+    </div>
+</body>
+</html>

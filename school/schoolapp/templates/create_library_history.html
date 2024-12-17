@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Library History</title>
+</head>
+<body>
+    <h1>Create Library History</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="student_id">Student:</label>
+        <select name="student_id" id="student_id" required>
+            <option value="" disabled selected>Select a student</option>
+            {% for student in students %}
+            <option value="{{ student.id }}">{{ student.name }}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <label for="book_title">Book Title:</label>
+        <input type="text" name="book_title" id="book_title" placeholder="Enter book title" required>
+        <br>
+        <label for="issue_date">Issue Date:</label>
+        <input type="date" name="issue_date" id="issue_date" required>
+        <br>
+        <label for="return_date">Return Date:</label>
+        <input type="date" name="return_date" id="return_date" required>
+        <br><br>
+        <button type="submit">Add Entry</button>
+    </form>
+    <br>
+    <a href="{% url 'list_library_history' %}">Back to Library History</a>
+</body>
+</html>
+
